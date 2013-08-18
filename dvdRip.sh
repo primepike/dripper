@@ -16,6 +16,6 @@ DVDLABEL=`$DRIPPER_DIR/python/getDVDLabel $DEVICE`
 
 echo "$TITLE mounted" >> dvd.log
 
-dvdbackup -M -i $DEVICE -o $HOME/dvds
+dvdbackup -M -i $DEVICE -o $OUTPUT_DIR
 
 echo "$TITLE" > $OUTPUT_DIR/$DVDLABEL/discName.txt
