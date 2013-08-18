@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+#
+# usage: getDVDTitle <device> <logfileLocation>
 
 import sys
 import dvdfingerprint
@@ -11,8 +13,14 @@ import logging
 
 MOUNT_DIR = "/media/mike/"
 
-logging.basicConfig(filename='getTitle.log',level=logging.DEBUG)
-logging.debug('ran')
+try:
+	logfile = sys.argv[2]
+	if logfile: 
+		logging.basicConfig(filename=logfile,level=logging.DEBUG)
+except:
+	pass
+
+logging.debug("getting DVD title")
 
 def makeSafeName(name):
 	safeChars = string.letters + string.digits + " -_()"
@@ -26,31 +34,33 @@ def makeSafeName(name):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) == 2: 
-
+    if len(sys.argv) == 3: 
+	
 	device = sys.argv[1]
-
+	
 	out = subprocess.Popen(["blkid","-d","-s","LABEL",device], stdout=subprocess.PIPE)
 	mountPoint = out.communicate()[0]
 	if out.returncode != 0:	
 		exit(1)
-
+	
 	regex =  re.compile(r'(?<=LABEL=\")([^"]|\\")*', re.IGNORECASE)
 	matches = regex.search(mountPoint)
 	mountPoint = matches.group()
-
+	
 	fingerprint = dvdfingerprint.fingerprint(MOUNT_DIR + mountPoint)	
-
+	
 	lookup =  urllib2.urlopen("http://discident.com/v1/" + fingerprint + "/").read()
 	if lookup.find("404") != -1:
 		print mountPoint
 		exit(1)
-
+	
 	j = json.loads(lookup)
-	print makeSafeName(j["title"])
+	safeName = makeSafeName(j["title"])
+	print safeName
 
+	logging.debug("DVD Title for " + device + " is returned as \"" + safeName + "\"")
 	exit(0)
-
+	
     else:
-	print "Usage: getDVDTitle <device>"
+	print "Usage: getDVDTitle <device> [logfilelocation]"
 
