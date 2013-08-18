@@ -11,7 +11,7 @@ DEVICE=$1
 
 echo "Ripping DVD on $DEVICE" >> $DRIPPER_DIR/logs/dvd.log
 
-TITLE=`$DRIPPER_DIR/python/getDVDTitle $DEVICE`
+TITLE=`$DRIPPER_DIR/python/getDVDTitle $DEVICE $DRIPPER_DIR/logs/DVDNames.log`
 DVDLABEL=`$DRIPPER_DIR/python/getDVDLabel $DEVICE`
 
 echo "$TITLE mounted" >> $DRIPPER_DIR/logs/dvd.log
