@@ -4,8 +4,6 @@ import sys
 import subprocess
 import re
 
-MOUNT_DIR = "/media/mike/"
-
     
 def main():
     if len(sys.argv) == 2: 

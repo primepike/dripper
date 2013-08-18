@@ -3,4 +3,4 @@
 #
 #
 
-udisks-glue
+udisks-glue -f -c udisks-glue.conf
