@@ -1,0 +1,52 @@
+#!/usr/bin/env python
+
+import sys
+import dvdfingerprint
+import urllib2
+import subprocess
+import re
+import json
+import string
+
+MOUNT_DIR = "/media/mike/"
+
+def makeSafeName(name):
+	safeChars = string.letters + string.digits + " -_()"
+	changeChars = ":" #to be changed to specific character
+	changeToChar = "-"
+	nName = name
+	for char in changeChars:	
+		nName = nName.replace(char, changeToChar)
+	filtered = filter(lambda f: f in safeChars, nName)
+	return filtered[:60]
+
+
+if __name__ == "__main__":
+    if len(sys.argv) == 2: 
+
+	device = sys.argv[1]
+
+	out = subprocess.Popen(["blkid","-d","-s","LABEL",device], stdout=subprocess.PIPE)
+	mountPoint = out.communicate()[0]
+	if out.returncode != 0:	
+		exit(1)
+
+	regex =  re.compile(r'(?<=LABEL=\")([^"]|\\")*', re.IGNORECASE)
+	matches = regex.search(mountPoint)
+	mountPoint = matches.group()
+
+	fingerprint = dvdfingerprint.fingerprint(MOUNT_DIR + mountPoint)	
+
+	lookup =  urllib2.urlopen("http://discident.com/v1/" + fingerprint + "/").read()
+	if lookup.find("404") != -1:
+		print mountPoint
+		exit(1)
+
+	j = json.loads(lookup)
+	print makeSafeName(j["title"])
+
+	exit(0)
+
+    else:
+	print "Usage: getDVDTitle <device>"
+
