@@ -7,8 +7,12 @@ import subprocess
 import re
 import json
 import string
+import logging
 
 MOUNT_DIR = "/media/mike/"
+
+logging.basicConfig(filename='getTitle.log',level=logging.DEBUG)
+logging.debug('ran')
 
 def makeSafeName(name):
 	safeChars = string.letters + string.digits + " -_()"

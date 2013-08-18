@@ -1,0 +1,30 @@
+#!/usr/bin/env python
+
+import sys
+import subprocess
+import re
+
+MOUNT_DIR = "/media/mike/"
+
+    
+def main():
+    if len(sys.argv) == 2: 
+
+	device = sys.argv[1]
+
+	out = subprocess.Popen(["blkid","-d","-s","LABEL",device], stdout=subprocess.PIPE)
+	mountPoint = out.communicate()[0]
+	if out.returncode != 0:	
+		exit(1)
+
+	regex =  re.compile(r'(?<=LABEL=\")([^"]|\\")*', re.IGNORECASE)
+	matches = regex.search(mountPoint)
+	mountPoint = matches.group()
+
+	print MOUNT_DIR + mountPoint	
+
+    else:
+	print "Usage: getDVDTitle <device>"
+
+
+main()
