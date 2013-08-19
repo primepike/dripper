@@ -24,7 +24,7 @@ def main():
 	print MOUNT_DIR + mountPoint	
 
     else:
-	print "Usage: getDVDTitle <device>"
+	print "Usage: getDVDMountPoint <device>"
 
 
 main()
