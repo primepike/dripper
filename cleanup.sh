@@ -5,7 +5,8 @@
 
 
 DEVICE=$1
-OUTPUT_LOG="/home/mike/ripper/cleanup.log"
+DRIPPER_DIR="$HOME/dripper"
+OUTPUT_LOG="$DRIPPER_DIR/logs/cleanup.log"
 
 echo "Attempting to unmount $DEVICE" >> $OUTPUT_LOG
 umount -l $DEVICE

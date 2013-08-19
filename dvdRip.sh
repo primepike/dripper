@@ -9,6 +9,9 @@ DRIPPER_DIR=$HOME/dripper
 OUTPUT_DIR=$HOME/dvd-rips/copy
 DEVICE=$1
 
+#Create directory
+mkdir -p $OUTPUT_DIR
+
 echo "Ripping DVD on $DEVICE" >> $DRIPPER_DIR/logs/dvd.log
 
 TITLE=`$DRIPPER_DIR/python/getDVDTitle $DEVICE $DRIPPER_DIR/logs/DVDNames.log`
