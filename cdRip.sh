@@ -26,7 +26,9 @@ ABCDE_CMD+="-d $DEVICE "		#USE DEVICE
 
 echo "command is: $ABCDE_CMD" >> $OUTPUT_LOG
 
-$ABCDE_CMD
+CONSOLE_LOG_FILE=$DRIPPER_DIR/logs/cd-$DEVICE-copylog.txt
+
+$ABCDE_CMD > $CONSOLE_LOG_FILE 2>&1
 
 #eject $DEVICE #HANDLED BY ABCDE
 echo "finished copying CD: $DEVICE" >> $OUTPUT_LOG
