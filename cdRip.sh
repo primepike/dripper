@@ -8,13 +8,14 @@
 
 #OPTS
 DRIPPER_DIR="$HOME/dripper"
+OUTPUT_LOG="$DRIPPER_DIR/logs/cd.log"
 ABCDE_CONF="$DRIPPER_DIR/abcde.conf"
 
 #END OPTS
 
 DEVICE=$1
 
-echo "AUDIO CD $DEVICE inserted" >> $DRIPPER_DIR/logs/cd.log
+echo "AUDIO CD $DEVICE inserted" >> $OUTPUT_LOG
 
 #run abcde
 #abcde -VVV -c abcde.conf -a read,cddb,tag,move -o flac -p -N
@@ -23,6 +24,9 @@ ABCDE_CMD+="-c $ABCDE_CONF "		#PATH TO CONF FILE
 ABCDE_CMD+="-N "			#BE QUIET
 ABCDE_CMD+="-d $DEVICE "		#USE DEVICE
 
-echo "command is: $ABCDE_CMD" >> $DRIPPER_DIR/logs/cd.log
+echo "command is: $ABCDE_CMD" >> $OUTPUT_LOG
 
 $ABCDE_CMD
+
+#eject $DEVICE #HANDLED BY ABCDE
+echo "finished copying CD: $DEVICE" >> $OUTPUT_LOG
