@@ -5,6 +5,7 @@
 # Usage: cdRip.sh <device>
 #
 
+#set -x
 
 #OPTS
 DRIPPER_DIR="$HOME/dripper"
@@ -17,16 +18,18 @@ DEVICE=$1
 
 echo "AUDIO CD $DEVICE inserted" >> $OUTPUT_LOG
 
+SAFE_DEVICE=$(echo "$DEVICE" | tr '/' '#')
+CONSOLE_LOG_FILE="$DRIPPER_DIR/logs/cd-$SAFE_DEVICE-copylog.txt"
+
 #run abcde
 #abcde -VVV -c abcde.conf -a read,cddb,tag,move -o flac -p -N
 ABCDE_CMD="abcde "
 ABCDE_CMD+="-c $ABCDE_CONF "		#PATH TO CONF FILE
 ABCDE_CMD+="-N "			#BE QUIET
+ABCDE_CMO+="-D -V "			#DEBUGGING ON
 ABCDE_CMD+="-d $DEVICE "		#USE DEVICE
 
 echo "command is: $ABCDE_CMD" >> $OUTPUT_LOG
-
-CONSOLE_LOG_FILE=$DRIPPER_DIR/logs/cd-$DEVICE-copylog.txt
 
 $ABCDE_CMD > $CONSOLE_LOG_FILE 2>&1
 
