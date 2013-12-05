@@ -6,7 +6,7 @@
 #
 
 DRIPPER_DIR=$HOME/dripper
-OUTPUT_DIR=$HOME/dvd-rips/copy
+OUTPUT_DIR=$HOME/rips/dvd/copy
 DEVICE=$1
 
 #Create directory (should already be created)
