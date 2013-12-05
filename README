@@ -1,1 +1,5 @@
 DiscRIPPER
+
+Current issues:
+- ripping 2 discs from the same album is at risk of failing to copy to the storage server. after one disk finishes the folder will be deleted, if the second disk is still copying/transcoding, it will lose the directory it is copying to.
+- sudo is required for smooth ejecting and unounting on ubuntu (out of the box)
