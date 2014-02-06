@@ -40,7 +40,7 @@ source abcde.conf
 FLACFOLDER=`tail -1 $OUTPUTDIR/${DEVICE:5}.txt`
 
 #copy to server
-rsync -avz -e 'ssh -i /home/mike/.ssh/id_rsa' $FLACFOLDER mike@192.168.1.150:/mnt/media-rips/MUSIC/ > $CONSOLE_LOG_FILE 2>&1
+rsync -avz -e 'ssh -i /home/mike/.ssh/id_rsa' $FLACFOLDER mike@192.168.10.50:/mnt/media-rips/MUSIC/ > $CONSOLE_LOG_FILE 2>&1
 
 
 #DELETE FOLDER

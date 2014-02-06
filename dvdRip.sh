@@ -63,7 +63,7 @@ rm -rf $DVD_OUTPUT_DIR
 
 #THE FILES ARE READY TO BE COPIED TO THE SERVER
 echo $DVD_OUTPUT_CONTAINER
-rsync -avz -e 'ssh -i /home/mike/.ssh/id_rsa' $DVD_OUTPUT_CONTAINER_DIR mike@192.168.1.150:/mnt/media-rips/DVD/ > $CONSOLE_LOG_FILE 2>&1
+rsync -avz -e 'ssh -i /home/mike/.ssh/id_rsa' $DVD_OUTPUT_CONTAINER_DIR mike@192.168.10.50:/mnt/media-rips/DVD/ > $CONSOLE_LOG_FILE 2>&1
 
 # FINALLY, REMOVE THE FILES!
 rm -r $DVD_OUTPUT_CONTAINER_DIR
